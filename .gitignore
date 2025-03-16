@@ -1,9 +1,2 @@
-<<<<<<< HEAD
-credentials.json
-token.json
-
-__pycache__/
-=======
 mensajesGmail/credentials.json
 mensajesGmail/token.json
->>>>>>> develop
