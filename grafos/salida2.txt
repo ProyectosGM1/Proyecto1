@@ -1,0 +1,61 @@
+# Texto (Markdown):
+### Funcion para ver como se conectan diversas funciones dentro de un programa
+
+# Texto (Markdown):
+Consideraciones 
+* Errores de no encontrar el archivo
+* Caracteres no permitidos en utf-8
+* Que pueda capturar el nombre de entrada de un archiv y genere todo el proceso
+* multiples tipos de archivo y seleccion automatica
+
+# Código:
+import re
+
+#Detectar funciones dentro de un archivo de texto
+
+def detectar_funciones(archivo):
+    # Expresión regular para detectar funciones de Python
+    patron = r"(\w+)\(.*\):"
+    
+    funciones = []
+    #lectura del archivo 
+    with open(archivo, 'r') as file:
+        contenido = file.read()
+        
+        # Buscar todas las coincidencias con el patrón
+        funciones = re.findall(patron, contenido)
+    
+    return funciones
+
+
+# Código:
+import json
+
+def ipynb_a_txt(archivo_ipynb, archivo_txt):
+    with open(archivo_ipynb, 'r', encoding='utf-8', errors="ignore") as f:  
+        notebook = json.load(f)
+    
+    with open(archivo_txt, 'w', encoding='utf-8', errors="ignore") as f:
+        for celda in notebook['cells']:
+            if celda['cell_type'] == 'code':
+                f.write("# Código:\n")
+                for linea in celda['source']:
+                    f.write(linea)
+                f.write("\n\n")
+            elif celda['cell_type'] == 'markdown':
+                f.write("# Texto (Markdown):\n")
+                for linea in celda['source']:
+                    f.write(linea)
+                f.write("\n\n")
+
+# Usar la función con tu archivo
+
+# Código:
+
+
+# Código:
+ipynb_a_txt("conexionesFunciones.ipynb", "salida2.txt")
+funciones_detectadas = detectar_funciones("salida2.txt")
+print(funciones_detectadas)
+
+
